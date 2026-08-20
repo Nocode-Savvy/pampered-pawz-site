@@ -57,8 +57,9 @@
     .ba-slider {
       position: relative; overflow: hidden; border-radius: 1rem;
       cursor: ew-resize; user-select: none; -webkit-user-select: none;
+      background: #f8f4f6;
     }
-    .ba-slider img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .ba-slider img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; background: #f8f4f6; }
     .ba-after-wrap { position: relative; }
     .ba-before-wrap {
       position: absolute; inset: 0;
@@ -292,9 +293,9 @@
       <div class="max-w-7xl mx-auto px-4 text-center">
         <h2 class="font-script text-4xl md:text-5xl mb-2">Before &amp; After</h2>
         <p class="text-2xl mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
-        <div class="flex flex-wrap justify-center gap-8">
+        <div id="gallery-homepage-grid" class="flex flex-wrap justify-center gap-8">
           <!-- Pair 1 -->
-          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-[4/3]">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-1.jpg" alt="White dog after grooming, perfectly fluffy with a pink bandana">
             </div>
@@ -306,7 +307,7 @@
             <span class="ba-label ba-label-after">After</span>
           </div>
           <!-- Pair 2 -->
-          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-[4/3]">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-2.jpg" alt="Shih Tzu beautifully groomed with a blue bow">
             </div>
@@ -318,7 +319,7 @@
             <span class="ba-label ba-label-after">After</span>
           </div>
           <!-- Pair 3 -->
-          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-[4/3]">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-3.jpg" alt="Pomeranian beautifully groomed with a red bandana">
             </div>
@@ -336,20 +337,36 @@
       </div>
     </section>
 
-    <!-- ===== GALLERY LIGHTBOX MODAL ===== -->
+    <!-- ===== GALLERY LIGHTBOX MODAL (Redesigned) ===== -->
     <div id="gallery-modal" class="hidden fixed inset-0 z-[100] items-center justify-center lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Full gallery">
-      <div class="relative w-full max-w-[1600px] mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
-        <button id="gallery-close-btn" class="fixed top-4 right-4 z-[110] w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-colors" aria-label="Close gallery">
+      <div class="relative w-full max-w-[1400px] mx-auto px-6 md:px-10 py-10 max-h-[95vh] overflow-y-auto custom-scrollbar">
+        <!-- Close Button -->
+        <button id="gallery-close-btn" class="fixed top-5 right-5 z-[110] w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-all duration-300 hover:scale-110" aria-label="Close gallery">
           <i class="fa-solid fa-xmark"></i>
         </button>
-        <h2 class="font-script text-4xl md:text-5xl text-white text-center mb-8">Full Gallery</h2>
-        
-        <div id="gallery-modal-grid" class="flex flex-wrap justify-center gap-8">
-          <!-- Static cards injected here by JS -->
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+          <h2 class="font-script text-5xl md:text-6xl text-white mb-2">Full Gallery</h2>
+          <p class="text-pink-pastel text-base"><i class="fa-solid fa-paw mr-1"></i> Our Paw-some Transformations <i class="fa-solid fa-paw ml-1"></i></p>
         </div>
 
-        <div class="text-center mt-10">
-          <button id="gallery-load-more" class="hidden inline-block bg-pink-hot text-white px-8 py-3 rounded-full text-sm font-semibold btn-hover">Load More</button>
+        <!-- Gallery Grid -->
+        <div id="gallery-modal-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
+          <!-- Cards injected here by JS -->
+        </div>
+
+        <!-- Load More -->
+        <div class="text-center mt-12">
+          <button id="gallery-load-more" class="hidden inline-flex items-center gap-2 bg-white text-pink-hot border-2 border-pink-hot px-8 py-3 rounded-full text-sm font-semibold hover:bg-pink-hot hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-pink-hot/30">
+            <i class="fa-solid fa-paw text-xs"></i> Load More <i class="fa-solid fa-paw text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="gallery-empty-state" class="hidden text-center py-16">
+          <div class="text-6xl text-pink-hot/30 mb-4"><i class="fa-solid fa-paw"></i></div>
+          <p class="text-white/60 text-lg">No transformations yet — check back soon!</p>
         </div>
       </div>
     </div>

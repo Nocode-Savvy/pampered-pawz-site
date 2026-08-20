@@ -248,44 +248,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // --- Dynamic Gallery (index.html) ---
       const validPairs = gallery.filter(p => p.before && p.after);
-      if (validPairs.length > 0) {
-        const galleryGrid = document.querySelector('#gallery .grid');
-        const galleryModalGrid = document.querySelector('#gallery-modal-grid');
-        const loadMoreBtn = document.querySelector('#gallery-load-more');
+      // Get elements (fixed: was using '#gallery .grid' which doesn't match the flex container)
+      const galleryGrid = document.getElementById('gallery-homepage-grid');
+      const galleryModalGrid = document.getElementById('gallery-modal-grid');
+      const loadMoreBtn = document.getElementById('gallery-load-more');
+      const emptyState = document.getElementById('gallery-empty-state');
 
-        function createSliderHTML(pair, classes = '') {
-          return `
-            <div class="${classes} w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
-              <div class="ba-after-wrap w-full h-full">
-                <img src="${pair.after}" alt="Dog after grooming">
-              </div>
-              <div class="ba-before-wrap">
-                <img src="${pair.before}" alt="Dog before grooming">
-              </div>
-              <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
-              <span class="ba-label ba-label-before">Before</span>
-              <span class="ba-label ba-label-after">After</span>
-            </div>`;
-        }
+      function createSliderHTML(pair, classes = '') {
+        return `
+          <div class="${classes} w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-[4/3]">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="${pair.after}" alt="Dog after grooming">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="${pair.before}" alt="Dog before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>`;
+      }
 
-        // Create static card for modal
-        function createStaticCardHTML(pair) {
-          return `
-            <div class="flex-auto w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[800px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden p-4 flex flex-col gap-3">
-              <div class="relative w-full h-[400px] sm:h-[450px] rounded-2xl overflow-hidden ba-slider">
+      // Premium card for the Full Gallery modal
+      function createStaticCardHTML(pair) {
+        return `
+          <div class="w-full max-w-[480px] group">
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2" style="border: 1px solid rgba(233,30,140,0.1);">
+              <div class="relative w-full aspect-[4/3] ba-slider" style="border-radius: 0;">
                 <div class="ba-after-wrap w-full h-full">
-                  <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
+                  <img src="${pair.after}" alt="After grooming" class="w-full h-full">
                 </div>
                 <div class="ba-before-wrap">
-                  <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
+                  <img src="${pair.before}" alt="Before grooming" class="w-full h-full">
                 </div>
                 <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
                 <span class="ba-label ba-label-before">Before</span>
                 <span class="ba-label ba-label-after">After</span>
               </div>
-            </div>`;
-        }
+              <div class="px-4 py-3 flex items-center justify-center gap-2 text-xs font-semibold text-gray-400">
+                <i class="fa-solid fa-paw text-pink-hot/40"></i>
+                <span>Drag to compare</span>
+                <i class="fa-solid fa-paw text-pink-hot/40"></i>
+              </div>
+            </div>
+          </div>`;
+      }
 
+      if (validPairs.length > 0) {
         if (galleryGrid) {
           // Only show up to 3 pairs on the homepage teaser
           const teaserPairs = validPairs.slice(0, 3);
@@ -303,9 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Initialize the sliders we just injected
             galleryModalGrid.querySelectorAll('.ba-slider').forEach(initSlider);
             
-            if (validPairs.length > visibleCount) {
+            if (validPairs.length > visibleCount && loadMoreBtn) {
               loadMoreBtn.classList.remove('hidden');
-            } else {
+            } else if (loadMoreBtn) {
               loadMoreBtn.classList.add('hidden');
             }
           }
@@ -319,6 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
         }
+      } else {
+        // Show empty state if no pairs uploaded yet
+        if (emptyState) emptyState.classList.remove('hidden');
       }
     } catch (e) {
       console.error('Failed to load dynamic content from API:', e);

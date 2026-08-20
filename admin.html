@@ -51,7 +51,7 @@
 </head>
 <body class="font-sans text-brand-black bg-gray-50 min-h-screen">
 
-  <!-- Login Overlay -->
+  <!-- Login Overlay (ONLY visible element before auth) -->
   <div id="login-overlay" class="fixed inset-0 z-[300] flex items-center justify-center">
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm text-center">
       <h1 class="font-script text-4xl text-pink-hot mb-2">Pampered Pawz</h1>
@@ -66,24 +66,23 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="font-script text-3xl text-pink-hot">Pampered Pawz</span>
-        <span class="bg-pink-hot text-white text-xs font-bold px-3 py-1 rounded-full">ADMIN</span>
-      </div>
-      <a href="index.html" class="text-sm text-gray-500 hover:text-pink-hot transition-colors">
-        <i class="fa-solid fa-arrow-left mr-1"></i> Back to Site
-      </a>
-    </div>
-  </header>
-
-  <!-- Dashboard Container (Empty until authenticated) -->
+  <!-- Dashboard Container (Empty until authenticated — NO admin content in DOM before login) -->
   <div id="dashboard-container"></div>
 
-  <!-- Dashboard Template -->
+  <!-- Dashboard Template (includes header — nothing renders until auth succeeds) -->
   <template id="dashboard-template">
+    <!-- Header (inside template — only rendered after auth) -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="font-script text-3xl text-pink-hot">Pampered Pawz</span>
+          <span class="bg-pink-hot text-white text-xs font-bold px-3 py-1 rounded-full">ADMIN</span>
+        </div>
+        <a href="index.html" class="text-sm text-gray-500 hover:text-pink-hot transition-colors">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Back to Site
+        </a>
+      </div>
+    </header>
     <main class="max-w-5xl mx-auto px-4 py-10">
       <!-- Toast Container -->
       <div id="toast-container" class="fixed top-20 right-4 z-[200] space-y-2"></div>
@@ -327,6 +326,8 @@
             if (w > h) { h = (h / w) * MAX; w = MAX; }
             else { w = (w / h) * MAX; h = MAX; }
           }
+          canvas.width = w;
+          canvas.height = h;
           const ctx = canvas.getContext('2d');
           // Fill white background to prevent transparent PNGs from turning black
           ctx.fillStyle = '#ffffff';
