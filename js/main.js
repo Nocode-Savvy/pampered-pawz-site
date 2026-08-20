@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = !mobileMenu.classList.contains('hidden');
       mobileToggle.setAttribute('aria-expanded', isOpen);
     });
+
+    // Close mobile menu when a link is clicked
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileToggle.setAttribute('aria-expanded', false);
+      });
+    });
   }
 
   /* ----- Scroll Animations (Fade & Slide Up) ----- */
