@@ -58,6 +58,7 @@
       <p class="text-sm text-gray-500 mb-6">Admin Access</p>
       <form id="login-form">
         <input type="password" id="login-password" placeholder="Enter Admin Password" class="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:border-pink-hot focus:ring-1 focus:ring-pink-hot text-center" required>
+        <div id="login-error" class="hidden text-red-500 text-sm mb-4 font-medium"></div>
         <button type="submit" class="w-full bg-pink-hot text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors">
           Login
         </button>
@@ -78,80 +79,86 @@
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-4 py-10">
-    <!-- Toast Container -->
-    <div id="toast-container" class="fixed top-20 right-4 z-[200] space-y-2"></div>
+  <!-- Dashboard Container (Empty until authenticated) -->
+  <div id="dashboard-container"></div>
 
-    <!-- Welcome -->
-    <div class="text-center mb-12">
-      <h1 class="font-script text-4xl md:text-5xl mb-2">Admin Dashboard</h1>
-      <p class="text-gray-500">Upload and manage your gallery images. Saved securely to Vercel.</p>
-    </div>
+  <!-- Dashboard Template -->
+  <template id="dashboard-template">
+    <main class="max-w-5xl mx-auto px-4 py-10">
+      <!-- Toast Container -->
+      <div id="toast-container" class="fixed top-20 right-4 z-[200] space-y-2"></div>
 
-    <!-- ===== GROOM OF THE WEEK ===== -->
-    <section class="bg-white rounded-2xl shadow-md p-8 mb-10">
-      <div class="flex items-center gap-3 mb-6">
-        <i class="fa-solid fa-star text-pink-hot text-xl"></i>
-        <h2 class="text-xl font-semibold">Groom of the Week</h2>
+      <!-- Welcome -->
+      <div class="text-center mb-12">
+        <h1 class="font-script text-4xl md:text-5xl mb-2">Admin Dashboard</h1>
+        <p class="text-gray-500">Upload and manage your gallery images. Saved securely to Vercel.</p>
       </div>
-      <p class="text-gray-500 text-sm mb-6">Upload a before and after photo of this week's star pup. This shows on the Booking page.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- GOTW Before -->
-        <div>
-          <label class="block text-sm font-medium mb-2">Before Photo</label>
-          <div class="upload-zone rounded-xl p-6 text-center cursor-pointer relative" id="gotw-before-zone">
-            <input type="file" accept="image/*" class="hidden" id="gotw-before-input">
-            <div id="gotw-before-preview">
-              <i class="fa-solid fa-cloud-arrow-up text-3xl text-pink-hot mb-2"></i>
-              <p class="text-sm text-gray-500">Click or drag to upload</p>
+
+      <!-- ===== GROOM OF THE WEEK ===== -->
+      <section class="bg-white rounded-2xl shadow-md p-8 mb-10">
+        <div class="flex items-center gap-3 mb-6">
+          <i class="fa-solid fa-star text-pink-hot text-xl"></i>
+          <h2 class="text-xl font-semibold">Groom of the Week</h2>
+        </div>
+        <p class="text-gray-500 text-sm mb-6">Upload a before and after photo of this week's star pup. This shows on the Booking page.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- GOTW Before -->
+          <div>
+            <label class="block text-sm font-medium mb-2">Before Photo</label>
+            <div class="upload-zone rounded-xl p-6 text-center cursor-pointer relative" id="gotw-before-zone">
+              <input type="file" accept="image/*" class="hidden" id="gotw-before-input">
+              <div id="gotw-before-preview">
+                <i class="fa-solid fa-cloud-arrow-up text-3xl text-pink-hot mb-2"></i>
+                <p class="text-sm text-gray-500">Click or drag to upload</p>
+              </div>
+              <div id="gotw-before-loading" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-pink-hot"></i>
+              </div>
             </div>
-            <div id="gotw-before-loading" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
-              <i class="fa-solid fa-spinner fa-spin text-2xl text-pink-hot"></i>
+          </div>
+          <!-- GOTW After -->
+          <div>
+            <label class="block text-sm font-medium mb-2">After Photo</label>
+            <div class="upload-zone rounded-xl p-6 text-center cursor-pointer relative" id="gotw-after-zone">
+              <input type="file" accept="image/*" class="hidden" id="gotw-after-input">
+              <div id="gotw-after-preview">
+                <i class="fa-solid fa-cloud-arrow-up text-3xl text-pink-hot mb-2"></i>
+                <p class="text-sm text-gray-500">Click or drag to upload</p>
+              </div>
+              <div id="gotw-after-loading" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
+                <i class="fa-solid fa-spinner fa-spin text-2xl text-pink-hot"></i>
+              </div>
             </div>
           </div>
         </div>
-        <!-- GOTW After -->
-        <div>
-          <label class="block text-sm font-medium mb-2">After Photo</label>
-          <div class="upload-zone rounded-xl p-6 text-center cursor-pointer relative" id="gotw-after-zone">
-            <input type="file" accept="image/*" class="hidden" id="gotw-after-input">
-            <div id="gotw-after-preview">
-              <i class="fa-solid fa-cloud-arrow-up text-3xl text-pink-hot mb-2"></i>
-              <p class="text-sm text-gray-500">Click or drag to upload</p>
-            </div>
-            <div id="gotw-after-loading" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center rounded-xl">
-              <i class="fa-solid fa-spinner fa-spin text-2xl text-pink-hot"></i>
-            </div>
-          </div>
+        <div class="flex gap-3 mt-6">
+          <button id="gotw-save" class="bg-pink-hot text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-pink-600 transition-colors">
+            <i class="fa-solid fa-check mr-1"></i> Save Groom of the Week
+          </button>
         </div>
-      </div>
-      <div class="flex gap-3 mt-6">
-        <button id="gotw-save" class="bg-pink-hot text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-pink-600 transition-colors">
-          <i class="fa-solid fa-check mr-1"></i> Save Groom of the Week
-        </button>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===== BEFORE & AFTER GALLERY ===== -->
-    <section class="bg-white rounded-2xl shadow-md p-8 mb-10">
-      <div class="flex items-center gap-3 mb-6">
-        <i class="fa-solid fa-images text-pink-hot text-xl"></i>
-        <h2 class="text-xl font-semibold">Before &amp; After Gallery</h2>
-      </div>
-      <p class="text-gray-500 text-sm mb-6">Manage up to 6 transformation pairs shown on the Home page gallery and lightbox.</p>
-      
-      <div id="gallery-pairs" class="space-y-6"></div>
-      
-      <div class="flex justify-between items-center mt-6">
-        <button id="add-pair-btn" class="bg-brand-black text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors">
-          <i class="fa-solid fa-plus mr-1"></i> Add Pair
-        </button>
-        <button id="gallery-save" class="bg-pink-hot text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-pink-600 transition-colors">
-          <i class="fa-solid fa-check mr-1"></i> Save Gallery
-        </button>
-      </div>
-    </section>
-  </main>
+      <!-- ===== BEFORE & AFTER GALLERY ===== -->
+      <section class="bg-white rounded-2xl shadow-md p-8 mb-10">
+        <div class="flex items-center gap-3 mb-6">
+          <i class="fa-solid fa-images text-pink-hot text-xl"></i>
+          <h2 class="text-xl font-semibold">Before &amp; After Gallery</h2>
+        </div>
+        <p class="text-gray-500 text-sm mb-6">Manage up to 6 transformation pairs shown on the Home page gallery and lightbox.</p>
+        
+        <div id="gallery-pairs" class="space-y-6"></div>
+        
+        <div class="flex justify-between items-center mt-6">
+          <button id="add-pair-btn" class="bg-brand-black text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors">
+            <i class="fa-solid fa-plus mr-1"></i> Add Pair
+          </button>
+          <button id="gallery-save" class="bg-pink-hot text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-pink-600 transition-colors">
+            <i class="fa-solid fa-check mr-1"></i> Save Gallery
+          </button>
+        </div>
+      </section>
+    </main>
+  </template>
 
   <script>
   /* =============================================
@@ -160,7 +167,143 @@
 
   let appState = { gallery: [], gotw: { before: null, after: null } };
 
-  // --- Helpers ---
+  // --- Auth Verification ---
+  async function checkAuthOnLoad() {
+    try {
+      const res = await fetch('/api/login', { credentials: 'same-origin' });
+      if (res.ok) {
+        document.getElementById('login-overlay').style.display = 'none';
+        initDashboard();
+      }
+    } catch (e) {
+      // Not authenticated, leave overlay
+    }
+  }
+  checkAuthOnLoad();
+
+  // --- Login Form ---
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const passInput = document.getElementById('login-password');
+    const errorDiv = document.getElementById('login-error');
+    
+    btn.textContent = 'Logging in...';
+    btn.disabled = true;
+    errorDiv.classList.add('hidden');
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passInput.value }),
+        credentials: 'same-origin'
+      });
+      if (res.ok) {
+        document.getElementById('login-overlay').style.display = 'none';
+        initDashboard();
+      } else {
+        errorDiv.textContent = 'Incorrect password. Please try again.';
+        errorDiv.classList.remove('hidden');
+        passInput.value = '';
+      }
+    } catch (err) {
+      errorDiv.textContent = 'Login error. Please try again later.';
+      errorDiv.classList.remove('hidden');
+    }
+    btn.textContent = 'Login';
+    btn.disabled = false;
+  });
+
+  // --- Dashboard Initialization (Runs only when authenticated) ---
+  function initDashboard() {
+    // 1. Inject Dashboard HTML
+    const container = document.getElementById('dashboard-container');
+    const template = document.getElementById('dashboard-template');
+    if (!container.hasChildNodes()) {
+      container.appendChild(template.content.cloneNode(true));
+    }
+
+    // 2. Fetch Initial Data
+    fetchInitialData();
+
+    // 3. Attach Static Event Listeners
+    setupUploadZone('gotw-before-zone', 'gotw-before-input', 'gotw-before-preview', 'gotw-before-loading', 'gotw-before', 
+      url => appState.gotw.before = url);
+    setupUploadZone('gotw-after-zone', 'gotw-after-input', 'gotw-after-preview', 'gotw-after-loading', 'gotw-after', 
+      url => appState.gotw.after = url);
+
+    document.getElementById('gotw-save').addEventListener('click', async () => {
+      const btn = document.getElementById('gotw-save');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Saving...`;
+      try {
+        await saveDataToAPI();
+        showToast('Groom of the Week saved!');
+      } catch (err) {
+        showToast('Error saving data', 'error');
+      }
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Save Groom of the Week`;
+    });
+
+    document.getElementById('add-pair-btn').addEventListener('click', () => {
+      if (appState.gallery.length >= 6) {
+        showToast('Maximum 6 pairs allowed', 'error');
+        return;
+      }
+      appState.gallery.push({ before: null, after: null });
+      renderGalleryPairs();
+    });
+
+    document.getElementById('gallery-save').addEventListener('click', async () => {
+      const btn = document.getElementById('gallery-save');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Saving...`;
+      try {
+        await saveDataToAPI();
+        showToast('Gallery saved!');
+      } catch (err) {
+        showToast('Error saving gallery', 'error');
+      }
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Save Gallery`;
+    });
+  }
+
+  // --- API Functions (Include credentials: 'same-origin') ---
+  async function fetchInitialData() {
+    const res = await fetch('/api/gallery', { credentials: 'same-origin' });
+    if (res.ok) {
+      const data = await res.json();
+      appState = { gallery: data.gallery || [], gotw: data.gotw || { before: null, after: null } };
+      renderAll();
+    }
+  }
+
+  async function uploadImageToAPI(base64, filename) {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imageBase64: base64, filename }),
+      credentials: 'same-origin'
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    const data = await res.json();
+    return data.url;
+  }
+
+  async function saveDataToAPI() {
+    const res = await fetch('/api/gallery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(appState),
+      credentials: 'same-origin'
+    });
+    if (!res.ok) throw new Error('Failed to save data');
+  }
+
+  // --- Helpers & UI Rendering ---
   function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -197,84 +340,9 @@
     });
   }
 
-  async function uploadImageToAPI(base64, filename) {
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageBase64: base64, filename })
-    });
-    if (!res.ok) throw new Error('Upload failed');
-    const data = await res.json();
-    return data.url;
-  }
-
-  async function saveDataToAPI() {
-    const res = await fetch('/api/gallery', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(appState)
-    });
-    if (!res.ok) throw new Error('Failed to save data');
-  }
-
-  // --- Login Logic ---
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    const passInput = document.getElementById('login-password');
-    btn.textContent = 'Logging in...';
-    btn.disabled = true;
-
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: passInput.value })
-      });
-      if (res.ok) {
-        document.getElementById('login-overlay').style.display = 'none';
-        fetchInitialData();
-      } else {
-        showToast('Invalid password', 'error');
-        passInput.value = '';
-      }
-    } catch (err) {
-      showToast('Login error', 'error');
-    }
-    btn.textContent = 'Login';
-    btn.disabled = false;
-  });
-
-  // Automatically check if already logged in by fetching data
-  async function checkAuthOnLoad() {
-    try {
-      const res = await fetch('/api/gallery');
-      if (res.ok) {
-        document.getElementById('login-overlay').style.display = 'none';
-        const data = await res.json();
-        appState = { gallery: data.gallery || [], gotw: data.gotw || { before: null, after: null } };
-        renderAll();
-      }
-    } catch (e) {
-      // Not authenticated or error, leave overlay visible
-    }
-  }
-  checkAuthOnLoad();
-
-  async function fetchInitialData() {
-    const res = await fetch('/api/gallery');
-    if (res.ok) {
-      const data = await res.json();
-      appState = { gallery: data.gallery || [], gotw: data.gotw || { before: null, after: null } };
-      renderAll();
-    }
-  }
-
   function renderAll() {
-    // Render GOTW
     if (appState.gotw.before) setPreviewHTML('gotw-before-preview', appState.gotw.before);
     if (appState.gotw.after) setPreviewHTML('gotw-after-preview', appState.gotw.after);
-    // Render Gallery
     renderGalleryPairs();
   }
 
@@ -282,7 +350,6 @@
     document.getElementById(containerId).innerHTML = `<img src="${url}" class="w-full max-h-48 object-cover rounded-lg" alt="Preview">`;
   }
 
-  // --- Upload Zone Setup ---
   function setupUploadZone(zoneId, inputId, previewId, loadingId, filenamePrefix, onUrlReady) {
     const zone = document.getElementById(zoneId);
     const input = document.getElementById(inputId);
@@ -311,30 +378,8 @@
     });
   }
 
-  // GOTW Handlers
-  setupUploadZone('gotw-before-zone', 'gotw-before-input', 'gotw-before-preview', 'gotw-before-loading', 'gotw-before', 
-    url => appState.gotw.before = url);
-  setupUploadZone('gotw-after-zone', 'gotw-after-input', 'gotw-after-preview', 'gotw-after-loading', 'gotw-after', 
-    url => appState.gotw.after = url);
-
-  document.getElementById('gotw-save').addEventListener('click', async () => {
-    const btn = document.getElementById('gotw-save');
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Saving...`;
-    try {
-      await saveDataToAPI();
-      showToast('Groom of the Week saved!');
-    } catch (err) {
-      showToast('Error saving data', 'error');
-    }
-    btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Save Groom of the Week`;
-  });
-
-  // --- Gallery Pairs ---
-  const galleryContainer = document.getElementById('gallery-pairs');
-
   function renderGalleryPairs() {
+    const galleryContainer = document.getElementById('gallery-pairs');
     galleryContainer.innerHTML = '';
     appState.gallery.forEach((pair, index) => {
       const card = document.createElement('div');
@@ -386,29 +431,6 @@
     appState.gallery.splice(index, 1);
     renderGalleryPairs();
   };
-
-  document.getElementById('add-pair-btn').addEventListener('click', () => {
-    if (appState.gallery.length >= 6) {
-      showToast('Maximum 6 pairs allowed', 'error');
-      return;
-    }
-    appState.gallery.push({ before: null, after: null });
-    renderGalleryPairs();
-  });
-
-  document.getElementById('gallery-save').addEventListener('click', async () => {
-    const btn = document.getElementById('gallery-save');
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Saving...`;
-    try {
-      await saveDataToAPI();
-      showToast('Gallery saved!');
-    } catch (err) {
-      showToast('Error saving gallery', 'error');
-    }
-    btn.disabled = false;
-    btn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Save Gallery`;
-  });
   </script>
 </body>
 </html>
