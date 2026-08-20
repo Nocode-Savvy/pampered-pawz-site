@@ -101,6 +101,18 @@
     .btn-hover:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(233,30,140,0.3); }
     .btn-hover-dark:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
 
+    /* Custom Scrollbar for Modal */
+    .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #E91E8C; border-radius: 20px; }
+
+    /* Bounce Subtle for Back to Top */
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
+
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .paw-float, .paw-float-delay { animation: none; }
@@ -108,6 +120,7 @@
       .btn-hover:hover { transform: none; }
       .faq-content { transition: none; }
       .faq-icon { transition: none; }
+      .bounce-subtle { animation: none; }
     }
 
     /* Gallery Lightbox */
@@ -325,48 +338,19 @@
 
     <!-- ===== GALLERY LIGHTBOX MODAL ===== -->
     <div id="gallery-modal" class="hidden fixed inset-0 z-[100] items-center justify-center lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Full gallery">
-      <div class="relative w-full max-w-5xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto">
+      <div class="relative w-full max-w-5xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
         <button id="gallery-close-btn" class="fixed top-4 right-4 z-[110] w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-colors" aria-label="Close gallery">
           <i class="fa-solid fa-xmark"></i>
         </button>
         <h2 class="font-script text-4xl md:text-5xl text-white text-center mb-8">Full Gallery</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Lightbox Pair 1 -->
-          <div class="ba-slider aspect-square rounded-2xl">
-            <div class="ba-after-wrap w-full h-full">
-              <img src="images/after-1.jpg" alt="White dog after grooming">
-            </div>
-            <div class="ba-before-wrap">
-              <img src="images/before-1.jpg" alt="White dog before grooming">
-            </div>
-            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
-            <span class="ba-label ba-label-before">Before</span>
-            <span class="ba-label ba-label-after">After</span>
-          </div>
-          <!-- Lightbox Pair 2 -->
-          <div class="ba-slider aspect-square rounded-2xl">
-            <div class="ba-after-wrap w-full h-full">
-              <img src="images/after-2.jpg" alt="Shih Tzu after grooming">
-            </div>
-            <div class="ba-before-wrap">
-              <img src="images/before-2.jpg" alt="Shih Tzu before grooming">
-            </div>
-            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
-            <span class="ba-label ba-label-before">Before</span>
-            <span class="ba-label ba-label-after">After</span>
-          </div>
-          <!-- Lightbox Pair 3 -->
-          <div class="ba-slider aspect-square rounded-2xl">
-            <div class="ba-after-wrap w-full h-full">
-              <img src="images/after-3.jpg" alt="Pomeranian after grooming">
-            </div>
-            <div class="ba-before-wrap">
-              <img src="images/before-3.jpg" alt="Pomeranian before grooming">
-            </div>
-            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
-            <span class="ba-label ba-label-before">Before</span>
-            <span class="ba-label ba-label-after">After</span>
-          </div>
+        
+        <!-- The grid classes are managed in main.js to support 3/2/1 responsiveness -->
+        <div id="gallery-modal-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Static cards injected here by JS -->
+        </div>
+
+        <div class="text-center mt-10">
+          <button id="gallery-load-more" class="hidden inline-block bg-pink-hot text-white px-8 py-3 rounded-full text-sm font-semibold btn-hover">Load More</button>
         </div>
       </div>
     </div>
@@ -416,8 +400,17 @@
         </div>
       </div>
     </div>
-    <div class="text-center text-gray-600 text-xs mt-8">&copy; 2026 Pampered Pawz. All rights reserved.</div>
+    <div class="text-center text-gray-600 text-xs mt-8">
+      &copy; 2026 Pampered Pawz. All rights reserved. 
+      <span class="mx-2">|</span> 
+      <a href="admin.html" class="hover:text-pink-hot transition-colors">Admin Login</a>
+    </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 z-[90] w-12 h-12 bg-brand-black text-pink-hot rounded-full flex items-center justify-center shadow-xl opacity-0 invisible transition-all duration-300 hover:bg-pink-hot hover:text-white hover:scale-105" aria-label="Back to top">
+    <i class="fa-solid fa-paw text-xl bounce-subtle"></i>
+  </button>
 
   <script src="js/main.js"></script>
 </body>

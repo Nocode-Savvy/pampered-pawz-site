@@ -216,8 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
       }
     });
-  }
-
   /* ============================================
      LOAD DYNAMIC CONTENT FROM VERECEL API
      ============================================ */
@@ -241,8 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const validPairs = gallery.filter(p => p.before && p.after);
       if (validPairs.length > 0) {
         const galleryGrid = document.querySelector('#gallery .grid');
-        const galleryModalGrid = document.querySelector('#gallery-modal .grid');
+        const galleryModalGrid = document.querySelector('#gallery-modal-grid');
+        const loadMoreBtn = document.querySelector('#gallery-load-more');
 
+        // Create slider for homepage teaser
         function createSliderHTML(pair, classes = '') {
           return `
             <div class="${classes} ba-slider aspect-square">
@@ -258,13 +258,50 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         }
 
+        // Create static card for modal
+        function createStaticCardHTML(pair) {
+          return `
+            <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden p-3 flex flex-col gap-2">
+              <div class="grid grid-cols-2 gap-2 h-48 sm:h-64 rounded-xl overflow-hidden">
+                <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
+                <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
+              </div>
+              <div class="flex justify-between px-2 pb-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <span>Before</span>
+                <span>After</span>
+              </div>
+            </div>`;
+        }
+
         if (galleryGrid) {
-          galleryGrid.innerHTML = validPairs.map(p => createSliderHTML(p, 'stagger-child')).join('');
+          // Only show up to 3 pairs on the homepage teaser
+          const teaserPairs = validPairs.slice(0, 3);
+          galleryGrid.innerHTML = teaserPairs.map(p => createSliderHTML(p, 'stagger-child')).join('');
           galleryGrid.querySelectorAll('.ba-slider').forEach(initSlider);
         }
 
         if (galleryModalGrid) {
-          galleryModalGrid.innerHTML = validPairs.map(p => createSliderHTML(p, 'rounded-2xl')).join('');
+          let visibleCount = 9;
+          
+          function renderModalGrid() {
+            const pairsToShow = validPairs.slice(0, visibleCount);
+            galleryModalGrid.innerHTML = pairsToShow.map(p => createStaticCardHTML(p)).join('');
+            
+            if (validPairs.length > visibleCount) {
+              loadMoreBtn.classList.remove('hidden');
+            } else {
+              loadMoreBtn.classList.add('hidden');
+            }
+          }
+          
+          renderModalGrid();
+          
+          if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+              visibleCount += 9;
+              renderModalGrid();
+            });
+          }
         }
       }
     } catch (e) {
@@ -273,5 +310,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loadDynamicContent();
+
+  /* ============================================
+     BACK TO TOP BUTTON
+     ============================================ */
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.remove('opacity-0', 'invisible');
+        backToTopBtn.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'invisible');
+        backToTopBtn.classList.remove('opacity-100', 'visible');
+      }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
 });
