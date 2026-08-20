@@ -263,12 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create static card for modal
         function createStaticCardHTML(pair) {
           return `
-            <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden p-3 flex flex-col gap-2">
-              <div class="grid grid-cols-2 gap-2 h-48 sm:h-64 rounded-xl overflow-hidden">
+            <div class="flex-auto w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[600px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden p-4 flex flex-col gap-3">
+              <div class="grid grid-cols-2 gap-3 h-[350px] sm:h-[420px] rounded-2xl overflow-hidden bg-gray-50">
                 <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
                 <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
               </div>
-              <div class="flex justify-between px-2 pb-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <div class="flex justify-between px-6 pb-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
                 <span>Before</span>
                 <span>After</span>
               </div>

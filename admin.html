@@ -327,9 +327,11 @@
             if (w > h) { h = (h / w) * MAX; w = MAX; }
             else { w = (w / h) * MAX; h = MAX; }
           }
-          canvas.width = w;
-          canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const ctx = canvas.getContext('2d');
+          // Fill white background to prevent transparent PNGs from turning black
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
           resolve(canvas.toDataURL('image/jpeg', 0.8));
         };
         img.onerror = reject;

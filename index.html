@@ -338,14 +338,13 @@
 
     <!-- ===== GALLERY LIGHTBOX MODAL ===== -->
     <div id="gallery-modal" class="hidden fixed inset-0 z-[100] items-center justify-center lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Full gallery">
-      <div class="relative w-full max-w-5xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
+      <div class="relative w-full max-w-7xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
         <button id="gallery-close-btn" class="fixed top-4 right-4 z-[110] w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-colors" aria-label="Close gallery">
           <i class="fa-solid fa-xmark"></i>
         </button>
         <h2 class="font-script text-4xl md:text-5xl text-white text-center mb-8">Full Gallery</h2>
         
-        <!-- The grid classes are managed in main.js to support 3/2/1 responsiveness -->
-        <div id="gallery-modal-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="gallery-modal-grid" class="flex flex-wrap justify-center gap-8">
           <!-- Static cards injected here by JS -->
         </div>
 
