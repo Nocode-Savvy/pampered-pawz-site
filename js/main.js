@@ -272,13 +272,16 @@ document.addEventListener('DOMContentLoaded', () => {
         function createStaticCardHTML(pair) {
           return `
             <div class="flex-auto w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[800px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden p-4 flex flex-col gap-3">
-              <div class="grid grid-cols-2 gap-3 h-[400px] sm:h-[450px] rounded-2xl overflow-hidden bg-gray-50">
-                <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
-                <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
-              </div>
-              <div class="flex justify-between px-6 pb-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
-                <span>Before</span>
-                <span>After</span>
+              <div class="relative w-full h-[400px] sm:h-[450px] rounded-2xl overflow-hidden ba-slider">
+                <div class="ba-after-wrap w-full h-full">
+                  <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
+                </div>
+                <div class="ba-before-wrap">
+                  <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
+                </div>
+                <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+                <span class="ba-label ba-label-before">Before</span>
+                <span class="ba-label ba-label-after">After</span>
               </div>
             </div>`;
         }
@@ -296,6 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
           function renderModalGrid() {
             const pairsToShow = validPairs.slice(0, visibleCount);
             galleryModalGrid.innerHTML = pairsToShow.map(p => createStaticCardHTML(p)).join('');
+            
+            // Initialize the sliders we just injected
+            galleryModalGrid.querySelectorAll('.ba-slider').forEach(initSlider);
             
             if (validPairs.length > visibleCount) {
               loadMoreBtn.classList.remove('hidden');
