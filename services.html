@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services &amp; Pricing — Pampered Pawz</title>
+  <meta name="description" content="View grooming, boarding, and add-on services and pricing at Pampered Pawz. Professional care for small to medium dogs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            script: ['Sacramento', 'cursive'],
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            pink: {
+              hot: '#E91E8C',
+              light: '#FFF0F5',
+              pastel: '#FDDDE6',
+            },
+            blue: {
+              pastel: '#E8F4FD',
+              accent: '#7EC8E3',
+            },
+            yellow: {
+              pastel: '#FFF8E1',
+              accent: '#FFD93D',
+            },
+            green: {
+              pastel: '#E8F5E9',
+              accent: '#81C784',
+            },
+            brand: {
+              black: '#1A1A1A',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .btn-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .btn-hover:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(233,30,140,0.3); }
+    .btn-hover-dark:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-hover { transition: none; }
+      .btn-hover:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="font-sans text-brand-black bg-white">
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2" aria-label="Pampered Pawz Home">
+          <span class="text-3xl font-script text-pink-hot">Pampered Pawz</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="index.html" class="text-brand-black hover:text-pink-hot transition-colors">Home</a>
+          <a href="services.html" class="text-pink-hot hover:text-pink-600 transition-colors">Services &amp; Pricing</a>
+          <a href="booking.html" class="text-brand-black hover:text-pink-hot transition-colors">Booking</a>
+          <a href="index.html#gallery" class="text-brand-black hover:text-pink-hot transition-colors">Gallery</a>
+          <a href="index.html#about" class="text-brand-black hover:text-pink-hot transition-colors">About Andrea</a>
+          <a href="booking.html#faq" class="text-brand-black hover:text-pink-hot transition-colors">FAQ</a>
+        </div>
+        <a href="booking.html" class="hidden md:inline-flex items-center gap-2 bg-pink-hot text-white px-5 py-2 rounded-full text-sm font-semibold btn-hover" aria-label="Book your appointment">
+          Book Appointment <i class="fa-solid fa-paw text-xs"></i>
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+      <div class="px-4 py-4 space-y-3">
+        <a href="index.html" class="block text-brand-black hover:text-pink-hot">Home</a>
+        <a href="services.html" class="block text-pink-hot font-medium">Services &amp; Pricing</a>
+        <a href="booking.html" class="block text-brand-black hover:text-pink-hot">Booking</a>
+        <a href="index.html#gallery" class="block text-brand-black hover:text-pink-hot">Gallery</a>
+        <a href="index.html#about" class="block text-brand-black hover:text-pink-hot">About Andrea</a>
+        <a href="booking.html#faq" class="block text-brand-black hover:text-pink-hot">FAQ</a>
+        <a href="booking.html" class="inline-flex items-center gap-2 bg-pink-hot text-white px-5 py-2 rounded-full text-sm font-semibold mt-2">Book Appointment <i class="fa-solid fa-paw text-xs"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-20">
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="py-16 text-center bg-white anim-on-scroll">
+      <h1 class="font-script text-5xl md:text-7xl mb-3">Services &amp; Pricing</h1>
+      <p class="text-2xl mb-2 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
+      <p class="text-gray-600 text-base md:text-lg">Professional care. Personalized for your pup.</p>
+    </section>
+
+    <!-- ===== GROOMING MENU ===== -->
+    <section class="pb-16 bg-white anim-on-scroll" data-stagger>
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="font-script text-3xl md:text-4xl text-center mb-10">Grooming Menu</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Small Breeds Card -->
+          <div class="stagger-child rounded-2xl overflow-hidden shadow-lg">
+            <div class="bg-pink-hot text-white py-4 px-6">
+              <h3 class="font-semibold text-lg">Small Breeds <span class="text-sm font-normal opacity-80">(up to ~15 lbs)</span></h3>
+            </div>
+            <div class="bg-pink-light p-6 space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Full Groom</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$90</strong></span>
+              </div>
+              <div class="border-t border-pink-pastel"></div>
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Bath &amp; Light Trim</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$75</strong></span>
+              </div>
+              <div class="border-t border-pink-pastel"></div>
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Bath &amp; Brush</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$60</strong></span>
+              </div>
+            </div>
+          </div>
+          <!-- Medium Breeds Card -->
+          <div class="stagger-child rounded-2xl overflow-hidden shadow-lg">
+            <div class="bg-blue-accent text-white py-4 px-6">
+              <h3 class="font-semibold text-lg">Medium Breeds <span class="text-sm font-normal opacity-80">(up to ~16-35 lbs)</span></h3>
+            </div>
+            <div class="bg-blue-pastel p-6 space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Full Groom</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$115</strong></span>
+              </div>
+              <div class="border-t border-blue-accent/20"></div>
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Bath &amp; Light Trim</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$100</strong></span>
+              </div>
+              <div class="border-t border-blue-accent/20"></div>
+              <div class="flex justify-between items-center">
+                <span class="font-medium">Bath &amp; Brush</span>
+                <span class="text-sm text-gray-600">starting at <strong class="text-brand-black">$85</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-gray-500 text-sm italic mt-8 max-w-2xl mx-auto">
+          *Prices vary based on coat condition, temperament, and specific requests. Final pricing confirmed after pet is completed.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== ADD-ON SERVICES ===== -->
+    <section id="addons" class="py-16 bg-pink-light/40 anim-on-scroll" data-stagger>
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="font-script text-3xl md:text-4xl text-center mb-2">Add-On Services</h2>
+        <p class="text-2xl text-center mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 bg-white rounded-2xl p-8 shadow-md">
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Nail grinding</span>
+            <span class="font-semibold">$30</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Paw balm</span>
+            <span class="font-semibold">$20</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Nail polish</span>
+            <span class="font-semibold">$20</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Semi-permanent color</span>
+            <span class="font-semibold">$25+</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Teeth brushing</span>
+            <span class="font-semibold">$15</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Flea bath</span>
+            <span class="font-semibold">$25</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> De-shedding treatment</span>
+            <span class="font-semibold">$20</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Matting fee</span>
+            <span class="font-semibold">$15/5 min</span>
+          </div>
+          <div class="stagger-child flex justify-between items-center py-2 border-b border-gray-100 md:col-span-2">
+            <span class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> Express Service (full groom in 1.5-2 hrs)</span>
+            <span class="font-semibold">$25</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BOARDING ===== -->
+    <section id="boarding" class="py-16 md:py-24 bg-white anim-on-scroll">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="font-script text-3xl md:text-4xl text-center mb-10">Boarding</h2>
+        <div class="flex flex-col md:flex-row items-center gap-10">
+          <div class="w-full md:w-1/2">
+            <img src="images/boarding-dog.jpg" alt="Cute dog relaxing comfortably on a cozy couch with blankets in a home setting" class="rounded-3xl shadow-lg w-full object-cover aspect-[4/3]">
+          </div>
+          <div class="w-full md:w-1/2">
+            <p class="text-gray-700 text-base leading-relaxed mb-6">
+              Going out of town? Your pup can stay with Andrea in a cozy, home-style environment — no cold kennels, just comfy couches and plenty of love.
+            </p>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> <span>Overnight boarding — small breeds — <strong>$45/night</strong></span></li>
+              <li class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> <span>Overnight boarding — medium breeds — <strong>$50/night</strong></span></li>
+              <li class="flex items-center gap-2"><span class="text-pink-hot"><i class="fa-solid fa-paw text-sm"></i></span> <span>Day care — <strong>$30/day</strong></span></li>
+            </ul>
+            <p class="text-gray-500 text-sm italic">*Dogs must be up to date on vaccinations. Limited spots — book early!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHAT'S INCLUDED IN A FULL GROOM ===== -->
+    <section class="py-16 bg-pink-light/40 anim-on-scroll" data-stagger>
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="font-script text-3xl md:text-4xl mb-2">What's Included in a Full Groom</h2>
+        <p class="text-2xl mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-6">
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-pink-pastel flex items-center justify-center text-xl text-pink-hot"><i class="fa-solid fa-bath"></i></div>
+            <p class="text-xs font-medium">Bath</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-blue-pastel flex items-center justify-center text-xl text-blue-accent"><i class="fa-solid fa-wind"></i></div>
+            <p class="text-xs font-medium">Blow Dry</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-yellow-pastel flex items-center justify-center text-xl text-yellow-accent"><i class="fa-solid fa-brush"></i></div>
+            <p class="text-xs font-medium">Brush Out</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-green-pastel flex items-center justify-center text-xl text-green-accent"><i class="fa-solid fa-scissors"></i></div>
+            <p class="text-xs font-medium">Nail Trim</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-pink-pastel flex items-center justify-center text-xl text-pink-hot"><i class="fa-solid fa-ear-listen"></i></div>
+            <p class="text-xs font-medium">Ear Cleaning</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-blue-pastel flex items-center justify-center text-xl text-blue-accent"><i class="fa-solid fa-cut"></i></div>
+            <p class="text-xs font-medium text-center leading-tight">Breed-Specific Haircut or Trim</p>
+          </div>
+          <div class="stagger-child flex flex-col items-center gap-2">
+            <div class="w-14 h-14 rounded-full bg-yellow-pastel flex items-center justify-center text-xl text-yellow-accent"><i class="fa-solid fa-ribbon"></i></div>
+            <p class="text-xs font-medium text-center leading-tight">Bandana or Bow Finish</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CLOSING CTA ===== -->
+    <section class="py-12 bg-white text-center anim-on-scroll">
+      <a href="booking.html" class="inline-flex items-center gap-2 bg-pink-hot text-white px-8 py-4 rounded-full text-base font-semibold btn-hover" aria-label="Book your appointment">
+        Book Your Appointment <i class="fa-solid fa-paw text-sm"></i>
+      </a>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-brand-black text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div class="flex flex-col items-center md:items-start">
+        <span class="font-script text-3xl text-pink-hot mb-3">Pampered Pawz</span>
+        <p class="text-gray-400 text-sm">[CITY, STATE] • By Appointment Only</p>
+        <a href="booking.html" class="text-pink-hot text-sm mt-2 hover:underline">Book Your Appointment</a>
+      </div>
+      <div>
+        <h4 class="font-semibold text-sm mb-3 uppercase tracking-wider text-gray-400">Quick Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="hover:text-pink-hot transition-colors">Home</a></li>
+          <li><a href="services.html" class="hover:text-pink-hot transition-colors">Services &amp; Pricing</a></li>
+          <li><a href="booking.html" class="hover:text-pink-hot transition-colors">Booking</a></li>
+          <li><a href="index.html#gallery" class="hover:text-pink-hot transition-colors">Gallery</a></li>
+          <li><a href="index.html#about" class="hover:text-pink-hot transition-colors">About</a></li>
+          <li><a href="booking.html#faq" class="hover:text-pink-hot transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center md:items-end">
+        <h4 class="font-semibold text-sm mb-3 uppercase tracking-wider text-gray-400">Follow Andrea!</h4>
+        <div class="flex gap-4">
+          <a href="https://www.instagram.com/pampered_pawz" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-hot transition-colors" aria-label="Follow Pampered Pawz on Instagram">
+            <i class="fa-brands fa-instagram text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-gray-600 text-xs mt-8">&copy; 2026 Pampered Pawz. All rights reserved.</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

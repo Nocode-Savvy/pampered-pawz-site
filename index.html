@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pampered Pawz — Groomer to the Furry &amp; Fab</title>
+  <meta name="description" content="Pampered Pawz is a solo dog grooming and boarding business by Andrea. Professional care for small to medium dogs — by appointment only.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            script: ['Sacramento', 'cursive'],
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            pink: {
+              hot: '#E91E8C',
+              light: '#FFF0F5',
+              pastel: '#FDDDE6',
+            },
+            blue: {
+              pastel: '#E8F4FD',
+              accent: '#7EC8E3',
+            },
+            yellow: {
+              pastel: '#FFF8E1',
+              accent: '#FFD93D',
+            },
+            green: {
+              pastel: '#E8F5E9',
+              accent: '#81C784',
+            },
+            brand: {
+              black: '#1A1A1A',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* Paw-splatter float animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .paw-float { animation: float 7s ease-in-out infinite; }
+    .paw-float-delay { animation: float 8s ease-in-out infinite; animation-delay: 2s; }
+
+    /* Before/After Comparison Slider */
+    .ba-slider {
+      position: relative; overflow: hidden; border-radius: 1rem;
+      cursor: ew-resize; user-select: none; -webkit-user-select: none;
+    }
+    .ba-slider img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .ba-after-wrap { position: relative; }
+    .ba-before-wrap {
+      position: absolute; inset: 0;
+      clip-path: inset(0 50% 0 0);
+    }
+    .ba-handle {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 4px; transform: translateX(-50%);
+      background: white; z-index: 10;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+    .ba-handle-circle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px; height: 40px; border-radius: 50%;
+      background: white; border: 3px solid #E91E8C;
+      display: flex; align-items: center; justify-content: center;
+      color: #E91E8C; font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .ba-label {
+      position: absolute; bottom: 12px; z-index: 5;
+      background: rgba(0,0,0,0.6); color: white;
+      font-size: 11px; font-weight: 600; padding: 4px 12px;
+      border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .ba-label-before { left: 12px; }
+    .ba-label-after { right: 12px; }
+    .ba-slider.ba-active { cursor: grabbing; }
+
+    /* FAQ smooth transition */
+    .faq-content {
+      max-height: 0; overflow: hidden; padding-top: 0; padding-bottom: 0;
+      transition: max-height 0.25s ease, padding 0.25s ease;
+    }
+    .faq-icon { transition: transform 0.25s ease; }
+
+    /* Button hover */
+    .btn-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .btn-hover:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(233,30,140,0.3); }
+    .btn-hover-dark:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .paw-float, .paw-float-delay { animation: none; }
+      .btn-hover { transition: none; }
+      .btn-hover:hover { transform: none; }
+      .faq-content { transition: none; }
+      .faq-icon { transition: none; }
+    }
+
+    /* Gallery Lightbox */
+    .lightbox-backdrop {
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Paw-splatter SVG accents */
+    .paw-splatter {
+      position: absolute;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="font-sans text-brand-black bg-white">
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2" aria-label="Pampered Pawz Home">
+          <span class="text-3xl font-script text-pink-hot">Pampered Pawz</span>
+        </a>
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="index.html" class="text-pink-hot hover:text-pink-600 transition-colors">Home</a>
+          <a href="services.html" class="text-brand-black hover:text-pink-hot transition-colors">Services &amp; Pricing</a>
+          <a href="booking.html" class="text-brand-black hover:text-pink-hot transition-colors">Booking</a>
+          <a href="#gallery" class="text-brand-black hover:text-pink-hot transition-colors">Gallery</a>
+          <a href="#about" class="text-brand-black hover:text-pink-hot transition-colors">About Andrea</a>
+          <a href="booking.html#faq" class="text-brand-black hover:text-pink-hot transition-colors">FAQ</a>
+        </div>
+        <!-- CTA Button -->
+        <a href="booking.html" class="hidden md:inline-flex items-center gap-2 bg-pink-hot text-white px-5 py-2 rounded-full text-sm font-semibold btn-hover" aria-label="Book your appointment">
+          Book Appointment <i class="fa-solid fa-paw text-xs"></i>
+        </a>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+      <div class="px-4 py-4 space-y-3">
+        <a href="index.html" class="block text-pink-hot font-medium">Home</a>
+        <a href="services.html" class="block text-brand-black hover:text-pink-hot">Services &amp; Pricing</a>
+        <a href="booking.html" class="block text-brand-black hover:text-pink-hot">Booking</a>
+        <a href="#gallery" class="block text-brand-black hover:text-pink-hot">Gallery</a>
+        <a href="#about" class="block text-brand-black hover:text-pink-hot">About Andrea</a>
+        <a href="booking.html#faq" class="block text-brand-black hover:text-pink-hot">FAQ</a>
+        <a href="booking.html" class="inline-flex items-center gap-2 bg-pink-hot text-white px-5 py-2 rounded-full text-sm font-semibold mt-2">Book Appointment <i class="fa-solid fa-paw text-xs"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Sentinel for nav shadow -->
+    <div id="hero-sentinel" class="h-1"></div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section relative pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden bg-white text-center">
+      <!-- Paw splatter accents -->
+      <div class="paw-splatter paw-float top-12 left-4 md:left-16 w-40 h-40 md:w-56 md:h-56">
+        <svg viewBox="0 0 200 200" fill="none"><circle cx="60" cy="40" r="22" fill="#E91E8C"/><circle cx="120" cy="30" r="18" fill="#7EC8E3"/><circle cx="160" cy="70" r="20" fill="#FFD93D"/><circle cx="40" cy="100" r="25" fill="#81C784"/><circle cx="100" cy="90" r="35" fill="#E91E8C"/><circle cx="80" cy="150" r="20" fill="#7EC8E3"/><circle cx="140" cy="140" r="22" fill="#FFD93D"/></svg>
+      </div>
+      <div class="paw-splatter paw-float-delay top-20 right-4 md:right-16 w-36 h-36 md:w-48 md:h-48">
+        <svg viewBox="0 0 200 200" fill="none"><circle cx="50" cy="50" r="20" fill="#FFD93D"/><circle cx="130" cy="40" r="24" fill="#E91E8C"/><circle cx="160" cy="100" r="18" fill="#81C784"/><circle cx="80" cy="120" r="28" fill="#7EC8E3"/><circle cx="40" cy="150" r="16" fill="#E91E8C"/><circle cx="130" cy="160" r="22" fill="#FFD93D"/></svg>
+      </div>
+
+      <div class="max-w-3xl mx-auto px-4 relative z-10">
+        <!-- Paw print accent -->
+        <div class="text-4xl mb-2 text-pink-hot"><i class="fa-solid fa-paw"></i></div>
+        <h1 class="font-script text-6xl md:text-8xl text-brand-black mb-2">Pampered Pawz</h1>
+        <p class="font-script text-2xl md:text-3xl text-pink-hot mb-3">Groomer to the Furry &amp; Fab</p>
+        <p class="text-gray-600 text-base md:text-lg mb-8 max-w-xl mx-auto">Professional dog grooming &amp; boarding — by appointment only in [CITY, STATE]</p>
+        <a href="booking.html" class="inline-flex items-center gap-2 bg-brand-black text-white px-8 py-3 rounded-full text-base font-semibold btn-hover btn-hover-dark" aria-label="Book your appointment">
+          Book Your Appointment <i class="fa-solid fa-paw text-sm"></i>
+        </a>
+      </div>
+
+      <!-- Hero Dog Image -->
+      <div class="max-w-sm mx-auto mt-10 px-4 relative z-10">
+        <img src="images/hero-dog.jpg" alt="Beautifully groomed Yorkshire Terrier with a bow, looking pampered and fabulous" class="rounded-3xl shadow-2xl w-full object-cover aspect-[3/4]">
+      </div>
+    </section>
+
+    <!-- ===== QUICK HIGHLIGHTS BAR ===== -->
+    <section class="py-12 bg-pink-light anim-on-scroll" data-stagger>
+      <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <!-- Highlight 1 -->
+        <div class="stagger-child flex flex-col items-center gap-3">
+          <div class="w-16 h-16 rounded-full bg-pink-pastel flex items-center justify-center text-2xl text-pink-hot"><i class="fa-solid fa-dog"></i></div>
+          <p class="text-sm font-medium leading-snug">Grooming for small to medium dogs only — from tiny to mighty</p>
+        </div>
+        <!-- Highlight 2 -->
+        <div class="stagger-child flex flex-col items-center gap-3">
+          <div class="w-16 h-16 rounded-full bg-blue-pastel flex items-center justify-center text-2xl text-blue-accent"><i class="fa-solid fa-house"></i></div>
+          <p class="text-sm font-medium leading-snug">Boarding Available — cozy overnight stays</p>
+        </div>
+        <!-- Highlight 3 -->
+        <div class="stagger-child flex flex-col items-center gap-3">
+          <div class="w-16 h-16 rounded-full bg-yellow-pastel flex items-center justify-center text-2xl text-yellow-accent"><i class="fa-solid fa-calendar-check"></i></div>
+          <p class="text-sm font-medium leading-snug">By Appointment Only — easy online booking</p>
+        </div>
+        <!-- Highlight 4 -->
+        <div class="stagger-child flex flex-col items-center gap-3">
+          <div class="w-16 h-16 rounded-full bg-green-pastel flex items-center justify-center text-2xl text-green-accent"><i class="fa-solid fa-heart"></i></div>
+          <p class="text-sm font-medium leading-snug">Solo Owned &amp; Operated — every dog gets Andrea's personal touch</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT SNIPPET ===== -->
+    <section id="about" class="py-16 md:py-24 bg-white anim-on-scroll">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="font-script text-4xl md:text-5xl text-center mb-12">
+          <span class="text-pink-hot"><i class="fa-solid fa-heart text-2xl"></i></span> About Pampered Pawz <span class="text-pink-hot"><i class="fa-solid fa-heart text-2xl"></i></span>
+        </h2>
+        <div class="flex flex-col md:flex-row items-center gap-10">
+          <div class="w-full md:w-1/2">
+            <img src="images/about-dog.jpg" alt="Cute small dog with soft fur in a cozy indoor setting" class="rounded-3xl shadow-lg w-full object-cover aspect-[4/3]">
+          </div>
+          <div class="w-full md:w-1/2">
+            <p class="text-gray-700 text-base leading-relaxed">
+              Pampered Pawz is Andrea's labor of love — a solo grooming and boarding business in an intimate setting. Every dog gets one-on-one attention, a calm environment, and a groom that makes them look and feel fabulous.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OUR SERVICES ===== -->
+    <section class="py-16 md:py-24 bg-pink-light/40 anim-on-scroll" data-stagger>
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="font-script text-4xl md:text-5xl mb-2">Our Services</h2>
+        <p class="text-2xl mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Grooming Card -->
+          <div class="stagger-child bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow">
+            <div class="text-4xl mb-4 text-pink-hot"><i class="fa-solid fa-scissors"></i></div>
+            <h3 class="font-semibold text-xl mb-3">Grooming</h3>
+            <p class="text-gray-600 text-sm mb-6">Full grooms, baths, and everything in between to keep your pup looking fabulous.</p>
+            <a href="services.html" class="inline-block bg-pink-hot text-white px-6 py-2 rounded-full text-sm font-semibold btn-hover">See Full Services</a>
+          </div>
+          <!-- Boarding Card -->
+          <div class="stagger-child bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow">
+            <div class="text-4xl mb-4 text-blue-accent"><i class="fa-solid fa-house-chimney"></i></div>
+            <h3 class="font-semibold text-xl mb-3">Boarding</h3>
+            <p class="text-gray-600 text-sm mb-6">Cozy overnight stays in a home-style setting with lots of love and attention.</p>
+            <a href="services.html#boarding" class="inline-block bg-blue-accent text-white px-6 py-2 rounded-full text-sm font-semibold btn-hover">See Full Services</a>
+          </div>
+          <!-- Add-Ons Card -->
+          <div class="stagger-child bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow">
+            <div class="text-4xl mb-4 text-green-accent"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3 class="font-semibold text-xl mb-3">Add-Ons</h3>
+            <p class="text-gray-600 text-sm mb-6">Enhance your pup's experience with our premium add-on services.</p>
+            <a href="services.html#addons" class="inline-block bg-green-accent text-white px-6 py-2 rounded-full text-sm font-semibold btn-hover">See Full Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRANSFORMATION GALLERY ===== -->
+    <section id="gallery" class="py-16 md:py-24 bg-white anim-on-scroll" data-stagger>
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="font-script text-4xl md:text-5xl mb-2">Before &amp; After</h2>
+        <p class="text-2xl mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Pair 1 -->
+          <div class="stagger-child ba-slider aspect-square">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-1.jpg" alt="White dog after grooming, perfectly fluffy with a pink bandana">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-1.jpg" alt="Scruffy white dog before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+          <!-- Pair 2 -->
+          <div class="stagger-child ba-slider aspect-square">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-2.jpg" alt="Shih Tzu beautifully groomed with a blue bow">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-2.jpg" alt="Scruffy brown Shih Tzu before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+          <!-- Pair 3 -->
+          <div class="stagger-child ba-slider aspect-square">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-3.jpg" alt="Pomeranian beautifully groomed with a red bandana">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-3.jpg" alt="Fluffy Pomeranian before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+        </div>
+        <button id="gallery-open-btn" class="inline-block mt-10 bg-brand-black text-white px-8 py-3 rounded-full text-sm font-semibold btn-hover btn-hover-dark" aria-label="Open full gallery">
+          See Full Gallery
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY LIGHTBOX MODAL ===== -->
+    <div id="gallery-modal" class="hidden fixed inset-0 z-[100] items-center justify-center lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Full gallery">
+      <div class="relative w-full max-w-5xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto">
+        <button id="gallery-close-btn" class="fixed top-4 right-4 z-[110] w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-colors" aria-label="Close gallery">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h2 class="font-script text-4xl md:text-5xl text-white text-center mb-8">Full Gallery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Lightbox Pair 1 -->
+          <div class="ba-slider aspect-square rounded-2xl">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-1.jpg" alt="White dog after grooming">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-1.jpg" alt="White dog before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+          <!-- Lightbox Pair 2 -->
+          <div class="ba-slider aspect-square rounded-2xl">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-2.jpg" alt="Shih Tzu after grooming">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-2.jpg" alt="Shih Tzu before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+          <!-- Lightbox Pair 3 -->
+          <div class="ba-slider aspect-square rounded-2xl">
+            <div class="ba-after-wrap w-full h-full">
+              <img src="images/after-3.jpg" alt="Pomeranian after grooming">
+            </div>
+            <div class="ba-before-wrap">
+              <img src="images/before-3.jpg" alt="Pomeranian before grooming">
+            </div>
+            <div class="ba-handle"><div class="ba-handle-circle"><i class="fa-solid fa-arrows-left-right"></i></div></div>
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CLOSING CTA ===== -->
+    <section class="py-16 md:py-20 bg-pink-light anim-on-scroll">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="font-script text-4xl md:text-5xl mb-6">Ready to pamper your pup?</h2>
+        <p class="text-gray-700 text-lg mb-8">Let's make them look &amp; feel fabulous!</p>
+        <a href="booking.html" class="inline-flex items-center gap-2 bg-pink-hot text-white px-8 py-4 rounded-full text-base font-semibold btn-hover" aria-label="Book your appointment">
+          Book Your Appointment <i class="fa-solid fa-paw text-sm"></i>
+        </a>
+        <p class="text-gray-500 text-sm mt-4">By appointment only. Book online in under 2 minutes.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-brand-black text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <!-- Col 1 — Logo & Info -->
+      <div class="flex flex-col items-center md:items-start">
+        <span class="font-script text-3xl text-pink-hot mb-3">Pampered Pawz</span>
+        <p class="text-gray-400 text-sm">[CITY, STATE] • By Appointment Only</p>
+        <a href="booking.html" class="text-pink-hot text-sm mt-2 hover:underline">Book Your Appointment</a>
+      </div>
+      <!-- Col 2 — Quick Links -->
+      <div>
+        <h4 class="font-semibold text-sm mb-3 uppercase tracking-wider text-gray-400">Quick Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="hover:text-pink-hot transition-colors">Home</a></li>
+          <li><a href="services.html" class="hover:text-pink-hot transition-colors">Services &amp; Pricing</a></li>
+          <li><a href="booking.html" class="hover:text-pink-hot transition-colors">Booking</a></li>
+          <li><a href="#gallery" class="hover:text-pink-hot transition-colors">Gallery</a></li>
+          <li><a href="#about" class="hover:text-pink-hot transition-colors">About</a></li>
+          <li><a href="booking.html#faq" class="hover:text-pink-hot transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+      <!-- Col 3 — Social -->
+      <div class="flex flex-col items-center md:items-end">
+        <h4 class="font-semibold text-sm mb-3 uppercase tracking-wider text-gray-400">Follow Andrea!</h4>
+        <div class="flex gap-4">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/pampered_pawz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-hot transition-colors" aria-label="Follow Pampered Pawz on Instagram">
+            <i class="fa-brands fa-instagram text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-gray-600 text-xs mt-8">&copy; 2026 Pampered Pawz. All rights reserved.</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
