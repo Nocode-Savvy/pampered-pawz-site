@@ -289,12 +289,12 @@
 
     <!-- ===== TRANSFORMATION GALLERY ===== -->
     <section id="gallery" class="py-16 md:py-24 bg-white anim-on-scroll" data-stagger>
-      <div class="max-w-5xl mx-auto px-4 text-center">
+      <div class="max-w-7xl mx-auto px-4 text-center">
         <h2 class="font-script text-4xl md:text-5xl mb-2">Before &amp; After</h2>
         <p class="text-2xl mb-10 text-pink-hot"><i class="fa-solid fa-paw"></i></p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="flex flex-wrap justify-center gap-8">
           <!-- Pair 1 -->
-          <div class="stagger-child ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-1.jpg" alt="White dog after grooming, perfectly fluffy with a pink bandana">
             </div>
@@ -306,7 +306,7 @@
             <span class="ba-label ba-label-after">After</span>
           </div>
           <!-- Pair 2 -->
-          <div class="stagger-child ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-2.jpg" alt="Shih Tzu beautifully groomed with a blue bow">
             </div>
@@ -318,7 +318,7 @@
             <span class="ba-label ba-label-after">After</span>
           </div>
           <!-- Pair 3 -->
-          <div class="stagger-child ba-slider aspect-square">
+          <div class="stagger-child w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
             <div class="ba-after-wrap w-full h-full">
               <img src="images/after-3.jpg" alt="Pomeranian beautifully groomed with a red bandana">
             </div>
@@ -338,7 +338,7 @@
 
     <!-- ===== GALLERY LIGHTBOX MODAL ===== -->
     <div id="gallery-modal" class="hidden fixed inset-0 z-[100] items-center justify-center lightbox-backdrop" role="dialog" aria-modal="true" aria-label="Full gallery">
-      <div class="relative w-full max-w-7xl mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
+      <div class="relative w-full max-w-[1600px] mx-auto px-4 py-8 max-h-[95vh] overflow-y-auto custom-scrollbar">
         <button id="gallery-close-btn" class="fixed top-4 right-4 z-[110] w-12 h-12 bg-white rounded-full flex items-center justify-center text-brand-black text-xl shadow-lg hover:bg-pink-hot hover:text-white transition-colors" aria-label="Close gallery">
           <i class="fa-solid fa-xmark"></i>
         </button>

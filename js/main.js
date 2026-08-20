@@ -253,10 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const galleryModalGrid = document.querySelector('#gallery-modal-grid');
         const loadMoreBtn = document.querySelector('#gallery-load-more');
 
-        // Create slider for homepage teaser
         function createSliderHTML(pair, classes = '') {
           return `
-            <div class="${classes} ba-slider aspect-square">
+            <div class="${classes} w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] max-w-[500px] ba-slider aspect-square">
               <div class="ba-after-wrap w-full h-full">
                 <img src="${pair.after}" alt="Dog after grooming">
               </div>
@@ -272,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create static card for modal
         function createStaticCardHTML(pair) {
           return `
-            <div class="flex-auto w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[600px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden p-4 flex flex-col gap-3">
-              <div class="grid grid-cols-2 gap-3 h-[350px] sm:h-[420px] rounded-2xl overflow-hidden bg-gray-50">
+            <div class="flex-auto w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[800px] bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden p-4 flex flex-col gap-3">
+              <div class="grid grid-cols-2 gap-3 h-[400px] sm:h-[450px] rounded-2xl overflow-hidden bg-gray-50">
                 <img src="${pair.before}" alt="Before grooming" class="w-full h-full object-cover">
                 <img src="${pair.after}" alt="After grooming" class="w-full h-full object-cover">
               </div>
