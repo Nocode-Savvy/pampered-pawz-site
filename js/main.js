@@ -216,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
       }
     });
+  } // <-- ADDED MISSING BRACE HERE
+
   /* ============================================
      LOAD DYNAMIC CONTENT FROM VERECEL API
      ============================================ */
